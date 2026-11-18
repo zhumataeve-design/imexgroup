@@ -1,4 +1,4 @@
-// Add the spreadsheet ID to the script property SPREADSHEET_ID.
+/** @OnlyCurrentDoc */
 function doPost(e) {
   try {
     const fields = e.parameter;
@@ -13,9 +13,9 @@ function doPost(e) {
     const lock = LockService.getScriptLock();
     lock.waitLock(10000);
     try {
-      const id = PropertiesService.getScriptProperties().getProperty('SPREADSHEET_ID');
-      const spreadsheet = SpreadsheetApp.openById(id);
-      const sheet = spreadsheet.getSheetByName('Гости IMEX') || spreadsheet.insertSheet('Гости IMEX');
+      const spreadsheet = SpreadsheetApp.getActiveSpreadsheet();
+      if (!spreadsheet) throw new Error('Bound spreadsheet is unavailable');
+      const sheet = spreadsheet.getSheetByName('Sheet1') || spreadsheet.insertSheet('Sheet1');
       if (sheet.getLastRow() === 0) sheet.appendRow(['Дата', 'Имя и фамилия', 'Участие', 'Комментарий']);
       const plain = (value) => /^[=+\-@]/.test(value) ? "'" + value : value;
       sheet.appendRow([new Date(), plain(name), attendance, plain(comment)]);
