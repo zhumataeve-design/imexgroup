@@ -25,3 +25,10 @@
 /* Retain the native portrait proportions on both projection sizes. */
 .projection:not(.docked) .portrait{inset:0;width:66.6667%;height:100%;margin:auto;animation:none;mask-image:linear-gradient(to bottom,#000 94%,transparent)}
 .projection.docked .portrait{animation:none}
+.projection:not(.docked) .portrait,.projection.docked .portrait{inset:0;width:100%;height:100%;margin:0;overflow:visible;background:transparent;mask-image:none;transform-origin:50% 87%;animation:android-hover 6.4s ease-in-out infinite}
+.projection.docked{overflow:visible;border-radius:0}.projection .portrait img{object-fit:contain;visibility:visible}
+.portrait::after{content:'';position:absolute;pointer-events:none;left:55.6%;top:85%;width:2.3%;height:7%;border-radius:50%;background:radial-gradient(ellipse,#dfffff 8%,#57ffff 38%,transparent 72%);opacity:var(--signal,0)}
+.projection:not(.docked){animation:android-appear .65s ease-out both}
+@keyframes android-appear{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}
+@keyframes android-hover{0%,100%{transform:perspective(900px) rotateY(-3deg) translateY(0)}50%{transform:perspective(900px) rotateY(3deg) translateY(-3px)}}
+@media(prefers-reduced-motion:reduce){.projection .portrait,.projection:not(.docked){animation:none!important}}
