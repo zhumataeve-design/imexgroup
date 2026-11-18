@@ -1,8 +1,7 @@
-// Portrait coordinates use the original square artwork with a top-left origin.
+// Portrait coordinates use the hostess artwork with a top-left origin.
 (() => {
-  const holder = document.querySelector('.holo');
+  const holder = document.querySelector('.portrait');
   const portrait = holder.querySelector('img');
-  const dock = document.querySelector('.mini');
   const audio = document.querySelector('#voice');
   const reduced = matchMedia('(prefers-reduced-motion: reduce)');
   const canvas = document.createElement('canvas');
@@ -20,15 +19,15 @@
   }
   void main(){
     vec2 p=uv;
-    float head=oval(p,vec2(.49,.37),vec2(.26,.37));
-    float depth=oval(p,vec2(.423,.436),vec2(.16,.23));
+    float head=oval(p,vec2(.49,.17),vec2(.21,.18));
+    float depth=oval(p,vec2(.495,.20),vec2(.12,.10));
     p.x-=(.011*sin(time*.72)+gaze*.014)*(head+depth);
     p.y-=.006*sin(time*.95)*head;
-    float eyes=oval(p,vec2(.34,.357),vec2(.049,.028))+oval(p,vec2(.518,.342),vec2(.054,.03));
-    p.y-=.025*eyes*blink;
-    float lips=oval(p,vec2(.43,.538),vec2(.077,.052));
-    float seam=.533-.083*(p.x-.43);
-    float opening=.014*level*lips;
+    float eyes=oval(p,vec2(.428,.174),vec2(.039,.014))+oval(p,vec2(.537,.163),vec2(.041,.014));
+    p.y-=.011*eyes*blink;
+    float lips=oval(p,vec2(.500,.242),vec2(.065,.029));
+    float seam=.242-.095*(p.x-.50);
+    float opening=.007*level*lips;
     float distanceToLip=p.y-seam;
     p.y-=opening*smoothstep(-.002,.006,distanceToLip);
     vec3 c=texture2D(portrait,p).rgb;
@@ -63,8 +62,8 @@
     requestAnimationFrame(render);
     if(document.hidden || ms-last<32) return;
     last=ms;
-    const parent=dock.hidden?holder:dock;
-    if(canvas.parentElement!==parent) parent.prepend(canvas);
+    const parent=holder;
+    if(canvas.parentElement!==parent) parent.append(canvas);
     const side=Math.min(960,Math.ceil(parent.clientWidth*Math.min(devicePixelRatio,1.6)));
     if(!side) return;
     if(canvas.width!==side){canvas.width=canvas.height=side;gl.viewport(0,0,side,side);}

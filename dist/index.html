@@ -13,8 +13,8 @@
 <script src="config.js" defer></script>
 <script src="app.js" defer></script>
 <link rel="stylesheet" href="cinema.css">
-</head>
-<body>
+<link rel="stylesheet" href="atelier.css"><script defer src="projection.js"></script><script defer src="motion.js"></script></head>
+<body><canvas id="atmosphere" aria-hidden="true"></canvas>
 <header class="top"><div class="wrap nav">
 <a href="#top" class="brand" aria-label="IMEX GROUP, начало"><b>ime<span>x</span></b><small>GROUP</small></a>
 <nav aria-label="Разделы приглашения"><a href="#event">О событии</a><a href="#dress">Дресс-код</a><a href="#rsvp">Анкета</a></nav>
@@ -26,16 +26,16 @@
 <button class="ship-target" type="button" aria-label="Активировать проектор корабля"></button>
 <div class="wrap hero-grid"><div class="intro"><p class="eyebrow"><i></i> IMEX GROUP · ЮБИЛЕЙНЫЙ ВЕЧЕР</p>
 <h1>10 лет<br><em>вместе.</em></h1>
-<p class="lead">Встречаем будущее вместе.<br>Ваше приглашение на борт уже здесь.</p>
-<div class="hero-actions"><button class="button primary" id="welcome" type="button"><span aria-hidden="true">▷</span> Запустить голограмму</button>
+<p class="lead">25 декабря встречаемся в Астане,<br>чтобы отпраздновать юбилей IMEX GROUP.</p>
+<div class="hero-actions"><button class="button primary" id="welcome" type="button"><span aria-hidden="true">▷</span> Открыть приглашение</button>
 <a class="button outline" href="#rsvp">Подтвердить участие ↗</a></div></div>
-<div class="visual" aria-hidden="true"><div class="beam"></div><div class="emitter"></div></div></div>
+<div class="visual" aria-hidden="true"><img class="apparition" src="hostess.webp" alt=""><div class="beam"></div><div class="emitter"></div></div></div>
 <div class="flightbar wrap"><span><b>25.12</b> ДЕКАБРЬ</span><span><b>18:00</b> СБОР ГОСТЕЙ</span><a href="#event">THE ST. REGIS ASTANA ↓</a></div>
 </section>
-<div class="projection" hidden><video id="idle" muted loop playsinline preload="none" poster="host.webp" src="host-idle.mp4"></video><video id="voice" playsinline preload="none" poster="host.webp" src="transmission.mp4" aria-label="Голографический ведущий произносит приветствие"></video></div>
+<div class="projection" hidden><div class="portrait"><img src="hostess.webp" alt="Виртуальная ведущая IMEX GROUP"></div></div><audio id="voice" src="welcome.mp3" preload="none"></audio>
 <section class="section event wrap" id="event">
-<p class="eyebrow"><i></i> ЮБИЛЕЙНЫЙ ВЕЧЕР</p>
-<h2>О событии</h2>
+<p class="eyebrow"><i></i> ДЕТАЛИ ВСТРЕЧИ</p>
+<h2>Юбилейный вечер</h2>
 <div class="event-grid">
 <div><span>ДАТА</span><strong>25 декабря</strong></div>
 <div><span>СБОР ГОСТЕЙ</span><strong>18:00</strong></div>
@@ -44,7 +44,7 @@
 </section>
 <section class="section dress" id="dress"><div class="wrap">
 <p class="eyebrow"><i></i> ДРЕСС-КОД</p>
-<h2>Futuristic Black Tie</h2>
+<h2>Futuristic <em>Black Tie</em></h2>
 <p class="section-copy">Вечерние образы в чёрном и серебре. Металлизированные ткани, пайетки и украшения с холодным блеском подчеркнут тему вечера.</p>
 <div class="gallery">
 <figure><img loading="lazy" src="look-1.webp" alt="Вечернее платье с зеркальным серебристым блеском"><figcaption>Серебряное платье</figcaption></figure>
@@ -61,7 +61,7 @@
 </div></section>
 <section class="wrap transcript"><details><summary>Текст приветствия</summary><div id="speech">
 <p>Добро пожаловать!</p>
-<p>Я — ваш виртуальный помощник и рад приветствовать вас на праздновании <strong>10-летия компании IMEX GROUP!</strong></p>
+<p>Я — ваша виртуальная помощница и рада приветствовать вас на праздновании <strong>10-летия компании IMEX GROUP!</strong></p>
 <p>В этом году мы отмечаем особенную дату — 10 лет успеха, развития и достижений!</p>
 <p>Приглашаем вас стать частью этого знаменательного события.</p>
 <p>Пожалуйста, ознакомьтесь с информацией о мероприятии, обратите внимание на <strong>дресс-код</strong> и заполните небольшую анкету для подтверждения вашего участия.</p>
@@ -71,7 +71,7 @@
 </div></details></section>
 </main>
 <footer class="wrap"><a href="#top" class="brand" aria-label="IMEX GROUP, начало"><b>ime<span>x</span></b><small>GROUP</small></a><span>25 декабря · Астана</span><a href="#top">Наверх ↑</a></footer>
-<button class="mini" type="button" aria-label="Воспроизвести приветствие" hidden><img src="host.webp" alt=""><span aria-hidden="true">▷</span></button>
+<button class="mini" type="button" aria-label="Воспроизвести приветствие" hidden><img src="hostess.webp" alt=""><span aria-hidden="true">▷</span></button>
 
 <audio id="music" preload="none" src="ambient.mp3" loop></audio>
 </body>

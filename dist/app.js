@@ -1,7 +1,7 @@
 const hero = document.querySelector('.hero');
 const projection = document.querySelector('.projection');
 const voice = document.querySelector('#voice');
-const idle = document.querySelector('#idle');
+
 const music = document.querySelector('#music');
 const welcome = document.querySelector('#welcome');
 const sound = document.querySelector('.sound');
@@ -9,7 +9,7 @@ const mini = document.querySelector('.mini');
 const motion = matchMedia('(prefers-reduced-motion: reduce)');
 let launched = false;
 let muted = false;
-let fallback = false;
+
 music.volume = .18;
 
 function placeHost() {
@@ -31,8 +31,7 @@ function updateControls() {
   mini.setAttribute('aria-label', label);
   mini.querySelector('span').textContent = playing ? 'Ⅱ' : '▷';
   projection.classList.toggle('speaking', playing || (launched && !voice.ended && voice.currentTime > 0));
-  if (playing || motion.matches) idle.pause();
-  else idle.play().catch(()=>{});
+
 }
 function transmit() {
   if (!launched) {
@@ -43,14 +42,7 @@ function transmit() {
     placeHost();
   } else if (!voice.paused) { voice.pause(); return; }
   if (!muted) music.play().catch(()=>{});
-  voice.play().catch(()=>{
-    if (!fallback) {
-      fallback = true;
-      voice.poster = 'host.webp';
-      voice.src = 'welcome.mp3';
-      voice.play().catch(showText);
-    } else showText();
-  });
+  voice.play().catch(showText);
 }
 function showText() {
   const details = document.querySelector('.transcript details');
