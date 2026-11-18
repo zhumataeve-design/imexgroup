@@ -77,6 +77,27 @@ if ('IntersectionObserver' in window) {
   document.querySelectorAll('.event-grid>div,.gallery figure,.rsvp').forEach(el=>reveal.observe(el));
 }
 
+const door = document.querySelector('.invitation-door');
+const opener = document.querySelector('#open-card');
+door.showModal();
+document.documentElement.classList.add('sealed');
+door.addEventListener('cancel', event => event.preventDefault());
+opener.addEventListener('click', () => {
+  opener.disabled = true;
+  window.scrollTo({top:0, behavior:'instant'});
+  // Start playback inside the tap so iOS can play the greeting.
+  transmit();
+  door.classList.add('opening');
+  function finishOpening() {
+    if (!door.open) return;
+    door.close();
+    document.documentElement.classList.remove('sealed');
+    welcome.focus({preventScroll:true});
+    placeHost();
+  }
+  setTimeout(finishOpening, motion.matches ? 0 : 920);
+}, {once:true});
+
 const form = document.querySelector('#guest-form');
 const status = form.querySelector('.form-status');
 const submit = form.querySelector('[type=submit]');

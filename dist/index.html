@@ -8,13 +8,22 @@
 <title>IMEX GROUP — 10 лет вместе</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Golos+Text:wght@400;500;600;700;800&family=Manrope:wght@400;500;600;700;800&family=Space+Mono&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;1,500&family=Golos+Text:wght@400;500;600;700;800&family=Manrope:wght@400;500;600;700;800&family=Space+Mono&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="style.css">
 <script src="config.js" defer></script>
 <script src="app.js" defer></script>
 <link rel="stylesheet" href="cinema.css">
-<link rel="stylesheet" href="atelier.css"><script defer src="projection.js"></script><script defer src="motion.js"></script></head>
-<body><canvas id="atmosphere" aria-hidden="true"></canvas>
+<link rel="stylesheet" href="atelier.css"><link rel="stylesheet" href="entrance.css"><script defer src="projection.js"></script><script defer src="motion.js"></script></head>
+<body>
+<dialog class="invitation-door" aria-labelledby="cover-title">
+<div class="leaf left-leaf" aria-hidden="true"></div><div class="leaf right-leaf" aria-hidden="true"></div>
+<div class="invitation-card">
+<div class="cover-brand brand" aria-label="IMEX GROUP"><b>ime<span>x</span></b><small>GROUP</small></div>
+<div class="anniversary-seal" aria-hidden="true"><span>10</span></div>
+<p class="cover-kicker">Юбилейный вечер</p><h2 id="cover-title">Приглашение</h2>
+<p class="cover-venue">25 декабря · The St. Regis Astana</p>
+<button type="button" id="open-card" autofocus>Открыть <span aria-hidden="true">⟶</span></button>
+</div></dialog><canvas id="atmosphere" aria-hidden="true"></canvas>
 <header class="top"><div class="wrap nav">
 <a href="#top" class="brand" aria-label="IMEX GROUP, начало"><b>ime<span>x</span></b><small>GROUP</small></a>
 <nav aria-label="Разделы приглашения"><a href="#event">О событии</a><a href="#dress">Дресс-код</a><a href="#rsvp">Анкета</a></nav>
@@ -24,15 +33,15 @@
 <section class="hero" id="arrival">
 <div class="panorama" aria-hidden="true"></div><div class="dust" aria-hidden="true"></div>
 <button class="ship-target" type="button" aria-label="Активировать проектор корабля"></button>
-<div class="wrap hero-grid"><div class="intro"><p class="eyebrow"><i></i> IMEX GROUP · ЮБИЛЕЙНЫЙ ВЕЧЕР</p>
+<div class="wrap hero-grid"><div class="intro"><p class="eyebrow"><i></i> ЮБИЛЕЙНЫЙ ВЕЧЕР</p>
 <h1>10 лет<br><em>вместе.</em></h1>
-<p class="lead">25 декабря встречаемся в Астане,<br>чтобы отпраздновать юбилей IMEX GROUP.</p>
-<div class="hero-actions"><button class="button primary" id="welcome" type="button"><span aria-hidden="true">▷</span> Открыть приглашение</button>
+<p class="lead">25 декабря, The St. Regis Astana<br>Сбор гостей в 18:00 · Astor Ballroom</p>
+<div class="hero-actions"><button class="button primary" id="welcome" type="button"><span aria-hidden="true">▷</span> Слушать приветствие</button>
 <a class="button outline" href="#rsvp">Подтвердить участие ↗</a></div></div>
-<div class="visual" aria-hidden="true"><img class="apparition" src="hostess.webp" alt=""><div class="beam"></div><div class="emitter"></div></div></div>
+<div class="visual" aria-hidden="true"><div class="beam"></div><div class="emitter"></div></div></div>
 <div class="flightbar wrap"><span><b>25.12</b> ДЕКАБРЬ</span><span><b>18:00</b> СБОР ГОСТЕЙ</span><a href="#event">THE ST. REGIS ASTANA ↓</a></div>
 </section>
-<div class="projection" hidden><div class="portrait"><img src="hostess.webp" alt="Виртуальная ведущая IMEX GROUP"></div></div><audio id="voice" src="welcome.mp3" preload="none"></audio>
+<div class="projection" hidden><div class="portrait"><img src="hostess.webp" alt="Виртуальная ведущая IMEX GROUP"></div></div><audio id="voice" src="greeting.mp3" preload="metadata"></audio>
 <section class="section event wrap" id="event">
 <p class="eyebrow"><i></i> ДЕТАЛИ ВСТРЕЧИ</p>
 <h2>Юбилейный вечер</h2>

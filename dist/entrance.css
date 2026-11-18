@@ -1,0 +1,24 @@
+:root{--display:'Cormorant Garamond',Georgia,serif}
+.sealed,.sealed body{overflow:hidden}
+.invitation-door{box-sizing:border-box;position:fixed;inset:0;margin:0;width:100%;height:100%;max-width:none;max-height:none;border:0;padding:24px;background:transparent;color:#eff4ff;overflow:hidden}
+.invitation-door[open]{display:grid;place-items:center}
+.invitation-door::backdrop{background:transparent}
+.leaf{position:absolute;top:0;bottom:0;width:50.15%;background-color:#101c2f;background-image:repeating-linear-gradient(125deg,transparent 0 44px,#bdd3ff0a 45px 46px,transparent 47px 61px),radial-gradient(ellipse at 100% 47%,#375171 0%,#1b2e49 39%,#0b1323 85%);border-right:1px solid #b9e8ff;box-shadow:inset -4px 0 22px #73a7dd39}
+.left-leaf{left:0}.right-leaf{right:0;transform:scaleX(-1)}
+.invitation-card{position:relative;text-align:center;width:min(410px,100%);padding:clamp(24px,5vh,46px) 22px;border:1px solid #adc8ee91;background:radial-gradient(ellipse at 48% -8%,#2d405d,#121c30 58%,#101a2c);border-radius:100px 100px 18px 18px;box-shadow:0 32px 75px #0207109c,inset 0 0 0 6px #122035,inset 0 0 0 7px #a2c4ef30}
+.cover-brand{color:#eaf4ff;margin:0 auto}.cover-brand b{font-size:29px}.cover-brand small{font-size:9px}
+.anniversary-seal{width:clamp(96px,16vh,148px);aspect-ratio:1;display:grid;place-items:center;position:relative;margin:clamp(16px,3vh,30px) auto;color:#d5e8ff;border:1px solid #a9d7ff70;border-radius:50%;box-shadow:0 0 30px #69b8ff17,inset 0 0 32px #69b8ff17}
+.anniversary-seal:before,.anniversary-seal:after{content:'';position:absolute;inset:7%;border:1px solid #a4cef080;border-radius:50%;transform:rotate(-28deg) scaleX(1.38) scaleY(.5)}.anniversary-seal:after{transform:rotate(28deg) scaleX(1.38) scaleY(.5);opacity:.5}
+.anniversary-seal span{font:500 clamp(62px,10vh,92px)/1 var(--display);letter-spacing:-.09em;padding-right:.08em;text-shadow:0 0 14px #15355a;z-index:1}
+.cover-kicker{font:11px/1.4 'Manrope',sans-serif;letter-spacing:.21em;text-transform:uppercase;color:#b6cde8;margin:0 0 8px}
+#cover-title{font:500 clamp(42px,7vw,57px)/1.05 var(--display);letter-spacing:-.035em;margin:0}
+.cover-venue{font-size:14px;color:#bbcadc;margin:13px 0 25px}
+#open-card{width:min(260px,100%);min-height:51px;border:1px solid #def4ff;border-radius:30px;background:linear-gradient(108deg,#d5ebff,#e6e7ff 56%,#b4c9ed);color:#14243e;font:700 16px Manrope,sans-serif;box-shadow:0 5px 28px #91c4ff24}
+#open-card span{margin-left:12px}.opening .left-leaf{animation:peelLeft .9s cubic-bezier(.65,0,.2,1) forwards}.opening .right-leaf{animation:peelRight .9s cubic-bezier(.65,0,.2,1) forwards}.opening .invitation-card{animation:unseal .55s forwards}
+@keyframes peelLeft{to{transform:translateX(-103%)}}@keyframes peelRight{to{transform:translateX(103%) scaleX(-1)}}@keyframes unseal{to{opacity:0;transform:translateY(-18px) scale(.93)}}
+.projection{mix-blend-mode:normal}.portrait img{visibility:hidden}.portrait canvas[hidden]{display:none}.projection.docked{background:transparent}
+.hero h1 em,.dress h2 em,.rsvp h2,.event h2{font-family:var(--display);letter-spacing:-.04em}
+@media(max-width:650px){
+.hero .visual{height:clamp(225px,35svh,345px)}.intro{padding:clamp(223px,35svh,345px) 0 21px;text-align:center}.intro .eyebrow,.hero-actions{justify-content:center}.intro .eyebrow{margin-bottom:10px;font-size:10px}.hero h1{font-size:clamp(50px,12vw,78px);letter-spacing:-.066em;margin-bottom:12px}.hero h1 br{display:none}.hero h1 em{margin-left:.13em;line-height:1.05}.hero .lead{font-size:14px;line-height:1.55;margin:0 0 17px}.intro .hero-actions{margin:auto;gap:8px;display:grid;width:min(320px,100%);grid-template-columns:1fr}.hero-actions .button{min-height:44px}.hero-actions .outline{background:#101c2be0}.flightbar{justify-content:center}.flightbar span{display:none}.flightbar a{margin:0;min-height:30px;display:grid;place-items:center}.dress h2{font-size:clamp(39px,11vw,61px)}.top .sound{font-size:12px;min-height:44px}.event h2,.rsvp h2{font-size:46px}
+}
+@media(max-height:500px){.invitation-card{padding:15px}.anniversary-seal{display:none}.invitation-dialog{overflow:auto}}

@@ -1,1 +1,1 @@
-Russian fallback speech synthesized with Piper ru_RU-irina-medium. https://huggingface.co/rhasspy/piper-voices/tree/main/ru/ru_RU/irina/medium
+Russian narration: Alina, ElevenLabs. IMEX GROUP anniversary invitation.
