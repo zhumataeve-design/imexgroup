@@ -1,0 +1,2 @@
+3D head based on the Lee Perry-Smith scan, Infinite-Realities, distributed in the three.js examples (CC BY 3.0). https://github.com/mrdoob/three.js/tree/dev/examples/models/gltf/LeePerrySmith
+Russian speech synthesized with Piper ru_RU-ruslan-medium. https://huggingface.co/rhasspy/piper-voices/tree/main/ru/ru_RU/ruslan/medium

@@ -1,76 +1,89 @@
+const hero = document.querySelector('.hero');
+const projection = document.querySelector('.projection');
 const voice = document.querySelector('#voice');
+const idle = document.querySelector('#idle');
 const music = document.querySelector('#music');
-const sound = document.querySelector('.sound');
 const welcome = document.querySelector('#welcome');
+const sound = document.querySelector('.sound');
 const mini = document.querySelector('.mini');
-const visual = document.querySelector('.visual');
+const motion = matchMedia('(prefers-reduced-motion: reduce)');
+let launched = false;
+let muted = false;
+let fallback = false;
+music.volume = .18;
 
-let soundEnabled = false;
-music.volume = 0.23;
-
-function toggleSound() {
-  soundEnabled = !soundEnabled;
-  sound.setAttribute('aria-pressed', String(soundEnabled));
-  document.querySelector('#sound-label').textContent = soundEnabled ? 'Выключить звук' : 'Включить звук';
-  if (!soundEnabled) {
-    voice.pause();
-    music.pause();
-    return;
-  }
-  music.play().catch(() => {});
-  playVoice();
+function placeHost() {
+  if (!launched) return;
+  const stage = document.querySelector('.visual').getBoundingClientRect();
+  const docked = stage.bottom < Math.min(180, innerHeight / 3);
+  mini.hidden = !docked;
+  const anchor = docked ? mini.getBoundingClientRect() : stage;
+  const side = docked ? anchor.width : Math.min(anchor.width, anchor.height);
+  projection.style.width = side + 'px';
+  projection.style.left = (anchor.x + (anchor.width - side) / 2) + 'px';
+  projection.style.top = (anchor.y + (anchor.height - side) / 2) + 'px';
+  projection.classList.toggle('docked', docked);
 }
-
-async function playVoice() {
-  try {
-    await voice.play();
-  } catch {
-    document.querySelector('.transcript details').open = true;
-    document.querySelector('.transcript').scrollIntoView();
-  }
-}
-
-function toggleVoice() {
-  if (!soundEnabled) {
-    toggleSound();
-  } else if (voice.paused) {
-    playVoice();
-  } else {
-    voice.pause();
-  }
-}
-
-function syncAudio() {
-  const playing = !voice.paused && !voice.ended;
-  document.body.classList.toggle('playing', playing);
-  mini.setAttribute('aria-label', playing ? 'Приостановить приветствие' : 'Воспроизвести приветствие');
+function updateControls() {
+  const playing = !voice.paused;
+  const label = playing ? 'Приостановить' : voice.ended ? 'Повторить приветствие' : 'Продолжить приветствие';
+  welcome.textContent = label;
+  mini.setAttribute('aria-label', label);
   mini.querySelector('span').textContent = playing ? 'Ⅱ' : '▷';
-  welcome.innerHTML = playing ? '<span aria-hidden="true">Ⅱ</span> Пауза' : '<span aria-hidden="true">▷</span> Слушать приветствие';
+  projection.classList.toggle('speaking', playing || (launched && !voice.ended && voice.currentTime > 0));
+  if (playing || motion.matches) idle.pause();
+  else idle.play().catch(()=>{});
 }
-
-sound.addEventListener('click', toggleSound);
-welcome.addEventListener('click', toggleVoice);
-mini.addEventListener('click', toggleVoice);
-for (const event of ['playing', 'pause', 'ended']) voice.addEventListener(event, syncAudio);
-
-let previousRect;
-let dockingAnimation;
-const observer = new IntersectionObserver(([entry]) => {
-  const dock = entry.boundingClientRect.top < 80 && entry.intersectionRatio < 0.4;
-  if (dock === !mini.hidden) return;
-  dockingAnimation?.cancel();
-  mini.hidden = !dock;
-  if (!dock || matchMedia('(prefers-reduced-motion: reduce)').matches) return;
-  previousRect = entry.boundingClientRect;
-  const target = mini.getBoundingClientRect();
-  const offsetX = previousRect.x + previousRect.width * 0.5 - target.x - target.width * 0.5;
-  const offsetY = Math.max(105, previousRect.y + previousRect.height * 0.5) - target.y - target.height * 0.5;
-  dockingAnimation = mini.animate([
-    { transform: `translate(${offsetX}px, ${offsetY}px) scale(2.2)`, opacity: 0.55 },
-    { transform: 'none', opacity: 1 }
-  ], { duration: 530, easing: 'cubic-bezier(.2,.8,.2,1)' });
-}, { threshold: [0, 0.4, 1], rootMargin: '-65px 0px 0px' });
-observer.observe(visual);
+function transmit() {
+  if (!launched) {
+    launched = true;
+    hero.classList.add('launched');
+    document.querySelector('.ship-target').hidden = true;
+    projection.hidden = false;
+    placeHost();
+  } else if (!voice.paused) { voice.pause(); return; }
+  if (!muted) music.play().catch(()=>{});
+  voice.play().catch(()=>{
+    if (!fallback) {
+      fallback = true;
+      voice.poster = 'host.webp';
+      voice.src = 'welcome.mp3';
+      voice.play().catch(showText);
+    } else showText();
+  });
+}
+function showText() {
+  const details = document.querySelector('.transcript details');
+  details.open = true;
+  details.scrollIntoView();
+}
+for (const button of [welcome, mini, document.querySelector('.ship-target')]) button.addEventListener('click', transmit);
+for (const event of ['playing','pause','ended']) voice.addEventListener(event, updateControls);
+sound.addEventListener('click', ()=>{
+  if (!launched && !muted) { transmit(); return; }
+  muted = !muted;
+  voice.muted = muted;
+  music.muted = muted;
+  if (!muted && launched) music.play().catch(()=>{});
+  updateSound();
+});
+function updateSound() {
+  const on = launched && !muted;
+  document.querySelector('#sound-label').textContent = on ? 'Выключить звук' : 'Включить звук';
+  sound.setAttribute('aria-pressed', String(on));
+}
+voice.addEventListener('playing',updateSound);
+window.addEventListener('scroll', placeHost, {passive:true});
+window.addEventListener('resize',placeHost);
+if ('IntersectionObserver' in window) {
+  const reveal = new IntersectionObserver(entries=>{
+    for(const entry of entries) if(entry.isIntersecting){
+      entry.target.classList.add('arrived');
+      reveal.unobserve(entry.target);
+    }
+  },{threshold:.08});
+  document.querySelectorAll('.event-grid>div,.gallery figure,.rsvp').forEach(el=>reveal.observe(el));
+}
 
 const form = document.querySelector('#guest-form');
 const status = form.querySelector('.form-status');
