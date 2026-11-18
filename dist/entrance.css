@@ -16,9 +16,12 @@
 #open-card{width:min(260px,100%);min-height:51px;border:1px solid #def4ff;border-radius:30px;background:linear-gradient(108deg,#d5ebff,#e6e7ff 56%,#b4c9ed);color:#14243e;font:700 16px Manrope,sans-serif;box-shadow:0 5px 28px #91c4ff24}
 #open-card span{margin-left:12px}.opening .left-leaf{animation:peelLeft .9s cubic-bezier(.65,0,.2,1) forwards}.opening .right-leaf{animation:peelRight .9s cubic-bezier(.65,0,.2,1) forwards}.opening .invitation-card{animation:unseal .55s forwards}
 @keyframes peelLeft{to{transform:translateX(-103%)}}@keyframes peelRight{to{transform:translateX(103%) scaleX(-1)}}@keyframes unseal{to{opacity:0;transform:translateY(-18px) scale(.93)}}
-.projection{mix-blend-mode:normal}.portrait img{visibility:hidden}.portrait canvas[hidden]{display:none}.projection.docked{background:transparent}
+.projection{mix-blend-mode:normal}.portrait img{visibility:visible}.portrait canvas[hidden]{display:none}.projection.docked{background:transparent}
 .hero h1 em,.dress h2 em,.rsvp h2,.event h2{font-family:var(--display);letter-spacing:-.04em}
 @media(max-width:650px){
 .hero .visual{height:clamp(225px,35svh,345px)}.intro{padding:clamp(223px,35svh,345px) 0 21px;text-align:center}.intro .eyebrow,.hero-actions{justify-content:center}.intro .eyebrow{margin-bottom:10px;font-size:10px}.hero h1{font-size:clamp(50px,12vw,78px);letter-spacing:-.066em;margin-bottom:12px}.hero h1 br{display:none}.hero h1 em{margin-left:.13em;line-height:1.05}.hero .lead{font-size:14px;line-height:1.55;margin:0 0 17px}.intro .hero-actions{margin:auto;gap:8px;display:grid;width:min(320px,100%);grid-template-columns:1fr}.hero-actions .button{min-height:44px}.hero-actions .outline{background:#101c2be0}.flightbar{justify-content:center}.flightbar span{display:none}.flightbar a{margin:0;min-height:30px;display:grid;place-items:center}.dress h2{font-size:clamp(39px,11vw,61px)}.top .sound{font-size:12px;min-height:44px}.event h2,.rsvp h2{font-size:46px}
 }
 @media(max-height:500px){.invitation-card{padding:15px}.anniversary-seal{display:none}.invitation-dialog{overflow:auto}}
+/* Retain the native portrait proportions on both projection sizes. */
+.projection:not(.docked) .portrait{inset:0;width:66.6667%;height:100%;margin:auto;animation:none;mask-image:linear-gradient(to bottom,#000 94%,transparent)}
+.projection.docked .portrait{animation:none}
